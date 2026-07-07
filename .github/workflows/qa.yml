@@ -1,0 +1,38 @@
+name: String QA gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install
+        run: npm ci
+
+      - name: Unit tests (checks, pseudo-loc, gate logic)
+        run: npm test
+
+      - name: TMX converter tests
+        run: python3 -m unittest discover -s tools/tmx
+
+      - name: Generate pseudo-localized build strings
+        run: npm run pseudo
+
+      - name: Run QA gate on all locales
+        run: npm run qa
+
+      - name: Upload QA report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-report
+          path: reports/
