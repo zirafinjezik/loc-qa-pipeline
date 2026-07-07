@@ -1,5 +1,5 @@
 {
-  "menu.start":     { "text": "Press START to begin.",                        "limit": 32 },
+  "menu.start":     { "text": "Press START to begin.",                        "limit": 42 },
   "hud.coins":      { "text": "You earned {0} coins!",                        "limit": 30 },
   "battery.low":    { "text": "Warning: Low battery. Charge your device.",    "limit": 60 },
   "confirm.delete": { "text": "Are you sure you want to delete this save?",   "limit": 50 },
