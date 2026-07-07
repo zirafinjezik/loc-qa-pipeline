@@ -1,0 +1,5 @@
+{
+  "hud.coins":   { "text": "You earned {0} coins!", "limit": 30 },
+  "menu.start":  { "text": "Press START to begin.", "limit": 10 },
+  "menu.quit":   { "text": "Quit game",             "limit": 20 }
+}

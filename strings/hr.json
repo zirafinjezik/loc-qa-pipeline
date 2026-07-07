@@ -1,0 +1,8 @@
+{
+  "menu.start":     "Pritisni START za početak.",
+  "hud.coins":      "Osvojeno {0} novčića!",
+  "battery.low":    "Upozorenje: Baterija je slaba. Napunite svoj uređaj.",
+  "confirm.delete": "Želite li izbrisati ovu spremljenu igru?",
+  "goal.crystals":  "Sakupi <b>sve</b> kristale!",
+  "error.network":  "Veza je prekinuta. Pokušati ponovno?"
+}

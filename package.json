@@ -1,0 +1,15 @@
+{
+  "name": "loc-qa-pipeline",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Continuous localization QA: string tables gated by automated checks in CI",
+  "license": "MIT",
+  "scripts": {
+    "qa": "node tools/run-qa.js",
+    "pseudo": "node tools/pseudoloc.js",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "vitest": "^3.0.0"
+  }
+}

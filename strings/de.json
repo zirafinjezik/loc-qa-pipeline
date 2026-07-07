@@ -1,0 +1,8 @@
+{
+  "menu.start":     "Drücke START, um zu beginnen.",
+  "hud.coins":      "Du hast {0} Münzen verdient!",
+  "battery.low":    "Warnung: Akku schwach. Lade dein Gerät.",
+  "confirm.delete": "Diesen Spielstand wirklich löschen?",
+  "goal.crystals":  "Sammle <b>alle</b> Kristalle!",
+  "error.network":  "Verbindung getrennt. Erneut versuchen?"
+}
