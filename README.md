@@ -1,4 +1,4 @@
-# loc-qa-pipeline
+**Continuous localization QA: string tables gated by automated checks in CI**
 
 Continuous localization QA. Game string tables live in the repo; every push and pull request runs an automated QA gate that blocks merges when a translation would break the build or the layout.
 
