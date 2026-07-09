@@ -16,24 +16,21 @@ The fix is treating translated strings like code: they enter through pull reques
 
 ## Flow
 
+```mermaid
+flowchart TD
+    A["strings/en.json<br/>source of truth: text + per-key limit"] --> C
+    B["PR updates strings/de.json, strings/hr.json, ..."] --> C
+    C{"GitHub Actions<br/>on every push / PR"}
+    C --> D["unit tests"]
+    C --> E["TMX converter tests"]
+    C --> F["pseudo-localization<br/>reports/pseudo.json"]
+    C --> G["QA gate<br/>every locale vs en.json"]
+    G --> H["reports/qa-report.md + .json<br/>build artifact"]
+    H --> I["errors: build fails, merge blocked"]
+    H --> J["warnings: build passes, report flags them"]
 ```
-strings/en.json  (source of truth: text + per-key character limit)
-      |
-      |  translator or TMS PR updates strings/de.json, strings/hr.json, ...
-      v
-GitHub Actions on every push / PR
-      |
-      |-- unit tests           (check rules, pseudo-loc, gate logic)
-      |-- TMX converter tests  (TM realignment CLI stays correct)
-      |-- pseudo-localization  (reports/pseudo.json for UI overflow testing)
-      |-- QA gate              (every locale vs. en.json, per string)
-      v
-reports/qa-report.md + .json  (build artifact)
-      |
-      v
-errors -> build fails, merge blocked
-warnings -> build passes, report flags them
-```
+
+The workflow itself is 40 lines: [.github/workflows/qa.yml](.github/workflows/qa.yml).
 
 ---
 
@@ -65,13 +62,17 @@ Errors fail the build. Warnings pass but land in the report, because a punctuati
 QA gate failed: 3 error(s).
 ```
 
-That output comes from `fixtures/`, a deliberately broken locale used by the test suite. `main` stays green.
+That output comes from `fixtures/`, a deliberately broken locale used by the test suite. `main` stays green. The full generated report is committed at [docs/sample-qa-report.md](docs/sample-qa-report.md).
 
 ---
 
 ## Pseudo-localization
 
 `npm run pseudo` generates an accented, ~35% longer variant of every source string (`Ĥéļļö` style, wrapped in brackets). Placeholders and tags pass through untouched, so a pseudo build compiles and still clears the placeholder check. Drop it into a build to find truncation and hardcoded strings before any translator touches the file.
+
+```
+"hud.coins": "You earned {0} coins!"   ->   "[Ýöü éáŕñéð {0} çöíñš!········]"
+```
 
 ---
 
@@ -109,6 +110,10 @@ Requirements: Node 20+, Python 3.x. No other dependencies.
 - The per-key `limit` field is where UI constraints live. In a real project that data comes from the design system or the engine's string metadata.
 
 ---
+
+## Not built yet
+
+Checks I'd add next, in rough order: ICU MessageFormat validation, plural-rule coverage per locale, RTL and bidi-control checks, and screenshot-based UI overflow verification. TMS webhook triggers (run the gate on export instead of on commit) would make this drop into an existing vendor workflow.
 
 ## Author
 
